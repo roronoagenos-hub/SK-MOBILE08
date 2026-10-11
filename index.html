@@ -217,16 +217,16 @@ const demo=[
 {name:'SamFW',cat:'TOOL',desc:'Samsung firmware and tools',url:'https://samfw.com/',download:''},
 {name:'iCloud',cat:'WEBSITE',desc:'Apple iCloud',url:'https://www.icloud.com/',download:''},
 {name:'Mifirm',cat:'WEBSITE',desc:'Xiaomi firmware resource',url:'https://mifirm.net/#google_vignette',download:''},
-{name:'Vidmate',cat:'APPLICATION',desc:'Vidmate page',url:'https://www.vidmateapp.com/subpub/yqh5/app',download:'https://apk-dym.vdmapk.com/dat'},
+{name:'Vidmate',cat:'APPLICATION',desc:'Vidmate APK download',url:'https://www.vidmateapp.com/subpub/yqh5/app',download:'https://apk-dym.vdmapk.com/data/apkv2/vidmate_v6.0302_20260911110128_encrypt.apk?pub=com.nemo.vidmate.app.websitenew_new'},
 {name:'MX Player',cat:'APPLICATION',desc:'MX Player download page',url:'https://mx-player.en.uptodown.com/android/download',download:'https://apkpure.com/mx-player-android'},
 {name:'Unlock Tool',cat:'TOOL',desc:'Google Drive shared link',url:'https://share.google/YTSALi1OAxYBixVdW',download:''},
 {name:'Unlock Tool Official',cat:'TOOL',desc:'UnlockTool website',url:'https://unlocktool.net/',download:''},
-{name:'Activity Launcher',cat:'APPLICATION',desc:'Google Play redirect link',url:'https://play.google.com/store/apps/details?id=de.szalkowski.activitylauncher',download:''},
-{name:'Phone Clone',cat:'APPLICATION',desc:'APKPure download',url:'https://d.apkpure.net/b/APK/com.hicloud.android.clone',download:''},
+{name:'Activity Launcher',cat:'APPLICATION',desc:'Activity Launcher download via Softonic',url:'https://en.softonic.com/download/activity-launcher/android/post-download?dt=internalDownload',download:'https://en.softonic.com/download/activity-launcher/android/post-download?dt=internalDownload'},
+{name:'OPPO Clone Phone',cat:'APPLICATION',desc:'OPPO Clone Phone download via Softonic',url:'https://en.softonic.com/download/oppo-clone-phone/android/post-download?dt=internalDownload',download:'https://en.softonic.com/download/oppo-clone-phone/android/post-download?dt=internalDownload'},
 {name:'Easy Share',cat:'APPLICATION',desc:'APKPure download',url:'https://d.apkpure.net/b/APK/com.dewmobile.kuaiya.play?version=latest',download:'https://d.apkpure.net/b/APK/com.dewmobile.kuaiya.play?version=latest'},
 {name:'SK',cat:'WEBSITE',desc:'SK Mobile helper site',url:'https://help-for-you-sk-mobile--fakelove75780.replit.app/',download:''},
 {name:'Subnautica',cat:'GAME',desc:'APKVision link supplied in project',url:'https://dl.apkvision.org/subnautica/Subnautica-v1.22.83416-full-apkvision.apk',download:'https://dl.apkvision.org/subnautica/Subnautica-v1.22.83416-full-apkvision.apk'},
-{name:'Subnautica Below Zero',cat:'GAME',desc:'APKVision link listed in project',url:'https://dl.apkvision.org/subnautica-below-zero/',download:''},
+{name:'Subnautica Below Zero',cat:'GAME',desc:'Subnautica Below Zero Android APK',url:'https://dl.apkvision.org/subnautica-below-zero/Subnautica-Below-Zero-v1.22.55047-full-apkvision.apk',download:'https://dl.apkvision.org/subnautica-below-zero/Subnautica-Below-Zero-v1.22.55047-full-apkvision.apk'},
 {name:'APKPure',cat:'WEBSITE',desc:'APKPure website',url:'https://apkpure.com/',download:'https://d.apkpure.com/custom/com.apkpure.aegon-latest.apk?channelId=1109&utm_content=1109'},
 {name:'Zapya',cat:'APPLICATION',desc:'Zapya official website',url:'https://www.izapya.com/',download:'https://d.apkpure.net/b/APK/com.dewmobile.kuaiya.play?version=latest'},
 {name:'Chrome',cat:'APPLICATION',desc:'Chrome shared link',url:'https://share.google/1plPPhMbX2PLFPize',download:'https://apkpure.com/google-chrome-fast-secure/com.android.chrome'},
@@ -241,7 +241,7 @@ const demo=[
 {name:'WhatsApp',cat:'APPLICATION',desc:'Messaging and calls',url:'https://www.whatsapp.com/',download:''}
 ];
 function itemKey(x){return String(x.name||'').toLowerCase()+'|'+String(x.url||'').toLowerCase()+'|'+String(x.cat||'').toLowerCase()}
-function allItems(){const fixed=['zapya','apkpure'];return [...items.filter(x=>!fixed.includes(x.name.toLowerCase())),...demo.filter(d=>fixed.includes(d.name.toLowerCase())||!items.some(x=>x.name.toLowerCase()===d.name.toLowerCase()))].filter(x=>!hiddenItems.includes(itemKey(x)))}
+function allItems(){const fixed=['zapya','apkpure'];const merged=demo.map(d=>{const saved=items.find(x=>String(x.name||'').toLowerCase()===d.name.toLowerCase());return saved?{...d,...saved,url:saved.url||d.url,download:saved.download||d.download,desc:saved.desc||d.desc,cat:saved.cat||d.cat}:d});const extras=items.filter(x=>!demo.some(d=>d.name.toLowerCase()===String(x.name||'').toLowerCase()));return [...extras.filter(x=>!fixed.includes(String(x.name||'').toLowerCase())),...merged].filter(x=>!hiddenItems.includes(itemKey(x)))}
 function validUrl(s){try{let u=new URL(s);return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}}
 function render(){
  const q=$('globalSearch').value.trim().toLowerCase(),cat=$('filter').value;
@@ -260,8 +260,8 @@ function render(){
   const star=document.createElement('button');star.className='star';star.textContent='☆';star.title='Favorite';star.onclick=()=>{star.classList.toggle('selected');star.textContent=star.classList.contains('selected')?'★':'☆'};card.appendChild(star);
   const actions=document.createElement('div');actions.className='itemactions';
   const url=validUrl(x.url),dl=validUrl(x.download);
-  if(['Zapya','APKPure'].includes(x.name) && dl){const a=document.createElement('a');a.href=dl;a.target='_blank';a.rel='noopener';a.textContent='⬇ Download APK';actions.appendChild(a)}
-  if(url){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent='♧ Website ↗';actions.appendChild(a)}
+  if(dl){const a=document.createElement('a');a.href=dl;a.target='_blank';a.rel='noopener noreferrer';a.textContent='⬇ Download'+(/\.apk(?:$|[?#])/i.test(dl)?' APK':'');actions.appendChild(a)}
+  if(url && url!==dl){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='♧ Website ↗';actions.appendChild(a)}
   if(actions.children.length)card.appendChild(actions);
   $('items').appendChild(card);
  });
