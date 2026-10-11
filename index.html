@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=1200, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#03120f">
 <title>SK MOBILE</title>
 <style>
@@ -82,14 +82,78 @@ main{max-width:1800px;padding:18px 1.5% 25px}.hero{height:clamp(170px,13vw,260px
 @media(max-width:700px){header{min-height:73px;gap:8px}.menu{margin-right:0;font-size:24px}.logo{width:42px;height:42px;flex-basis:42px;font-size:17px}.brand{font-size:22px;letter-spacing:-1px}.header-actions{gap:2px}.header-actions button{width:33px;height:36px;font-size:23px}main{padding:12px 10px}.hero{height:125px}.searchrow{grid-template-columns:minmax(0,1fr) 118px;gap:8px}.searchbox,.filter{font-size:12px;min-height:44px}.categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}.category{min-height:145px;flex-basis:auto}.category .symbol{width:43px;height:43px;font-size:24px}.category:after{font-size:65px}.items{grid-template-columns:repeat(2,minmax(0,1fr))}.item{grid-template-columns:42px 1fr}.itemicon{width:42px;height:42px}.itemactions{flex-wrap:wrap}.admin{display:block}.adminhead{margin-bottom:12px}.loginrow{grid-template-columns:1fr}}
 @media(max-width:370px){.brand{font-size:18px}.items{grid-template-columns:1fr}}
 
-/* Keep the desktop-style horizontal layout on mobile too. */
-html,body{min-width:1100px}
-main{max-width:1500px}
+/* Responsive layout: phones, tablets and desktop */
+html,body{min-width:0;width:100%;overflow-x:hidden}
+main{width:100%;max-width:1800px}
 .categories{grid-template-columns:repeat(4,minmax(0,1fr))}
 .items{grid-template-columns:repeat(5,minmax(0,1fr))}
-.searchrow{grid-template-columns:minmax(0,1fr) 245px}
-.loginrow{grid-template-columns:1fr 1fr 125px}
+.searchrow{grid-template-columns:minmax(0,1fr) 200px}
+.loginrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 125px}
+@media(max-width:900px){
+  header{gap:10px;padding:10px 14px}
+  .welcome,.clock{display:none}
+  main{padding:12px}
+  .categories{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .category{min-height:140px;padding:12px}
+  .items{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .searchrow{grid-template-columns:minmax(0,1fr) 140px;gap:8px}
+  .admin{display:block;padding:12px}
+  .adminhead{min-width:0;margin-bottom:12px}
+  .loginrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .loginrow button{grid-column:1/-1}
+}
+@media(max-width:600px){
+  header{min-height:64px;gap:8px;padding:8px 10px}
+  .logo{width:38px;height:38px;flex-basis:38px}
+  .brand{font-size:clamp(17px,5vw,23px);white-space:normal;letter-spacing:-.5px}
+  main{padding:10px}
+  .hero{height:112px}
+  .searchrow{grid-template-columns:minmax(0,1fr) 112px;gap:7px;margin:10px 0}
+  .searchbox,.filter{font-size:13px;min-height:42px;padding:9px}
+  .categories{display:flex;overflow-x:auto;gap:8px;padding-bottom:8px}
+  .category{flex:0 0 145px;min-height:130px}
+  .items{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .item{grid-template-columns:36px minmax(0,1fr);gap:7px;padding:9px}
+  .itemicon{width:36px;height:36px;font-size:19px}
+  .itemactions{flex-wrap:wrap}
+  .itemactions a{overflow-wrap:anywhere}
+  .loginrow{grid-template-columns:minmax(0,1fr)}
+  .loginrow button{grid-column:auto}
+  .entryadmin{overflow-wrap:anywhere}
+}
+@media(max-width:360px){
+  .items{grid-template-columns:minmax(0,1fr)}
+  .category{flex-basis:130px}
+}
 .pinned-item{border:2px solid #ffd166!important;box-shadow:0 0 16px #ffd16635,inset 0 0 16px #ffd16610!important;position:relative}.featured-badge{display:inline-block;margin:3px 0 3px 4px;padding:3px 7px;border-radius:7px;background:linear-gradient(90deg,#ffd166,#ff9f43);color:#241500;font-size:9px;font-weight:900;letter-spacing:.3px}.section-title{color:#ffd166}
+
+/* Mobile / PC layout switch */
+.view-toggle{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:8px 12px;border:1px solid #00f5a0;border-radius:12px;background:linear-gradient(135deg,#004c37,#00271f);color:#eafff6;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 0 12px #00ff8825;white-space:nowrap}
+.view-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
+body.pc-view{min-width:1000px;overflow-x:auto}
+body.pc-view .categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible}
+body.pc-view .items{grid-template-columns:repeat(5,minmax(0,1fr))}
+body.pc-view .searchrow{grid-template-columns:minmax(0,1fr) 200px}
+body.pc-view .loginrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 125px}
+body.pc-view .welcome,body.pc-view .clock{display:flex}
+body.mobile-view{width:100%;max-width:480px;margin:0 auto;border-left:1px solid #075e4b;border-right:1px solid #075e4b;min-height:100vh}
+body.mobile-view header{min-height:64px;gap:7px;padding:8px 9px}
+body.mobile-view .logo{width:38px;height:38px;flex-basis:38px;font-size:17px}
+body.mobile-view .brand{font-size:clamp(17px,5vw,23px);white-space:normal;letter-spacing:-.5px}
+body.mobile-view .welcome,body.mobile-view .clock{display:none}
+body.mobile-view .header-actions{gap:2px}
+body.mobile-view .header-actions button{width:33px;height:36px;font-size:23px}
+body.mobile-view main{padding:10px}
+body.mobile-view .hero{height:112px}
+body.mobile-view .searchrow{grid-template-columns:minmax(0,1fr) 112px;gap:7px;margin:10px 0}
+body.mobile-view .categories{display:flex;overflow-x:auto;gap:8px;padding-bottom:8px}
+body.mobile-view .category{flex:0 0 145px;min-height:130px}
+body.mobile-view .items{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+body.mobile-view .item{grid-template-columns:36px minmax(0,1fr);gap:7px;padding:9px}
+body.mobile-view .itemicon{width:36px;height:36px;font-size:19px}
+body.mobile-view .itemactions{flex-wrap:wrap}
+body.mobile-view .loginrow{grid-template-columns:minmax(0,1fr)}
+@media(max-width:600px){.view-toggle{font-size:10px;min-height:34px;padding:6px 8px}.header-actions{gap:2px}.header-actions button{width:30px;height:34px;font-size:20px}}
 </style>
 </head>
 <body>
@@ -97,6 +161,7 @@ main{max-width:1500px}
   <div class="menu" aria-hidden="true">☰</div>
   <div class="logo">SK<small>MOBILE</small></div>
   <div class="brand"><span>SK</span> MOBILE</div>
+  <button type="button" id="viewToggle" class="view-toggle" aria-pressed="false" title="Switch between Mobile and PC layouts">🖥 PC View</button>
   <div class="header-actions"><button type="button" id="focusSearch" aria-label="Search">⌕</button><button type="button" id="notifyBtn" aria-label="Notifications">♧<i></i></button></div><div class="welcome"><span class="welcome-phone">📱</span><span>Welcome to SK MOBILE<br><span style="opacity:.75">Enjoy your download and have a great day!</span></span></div><div class="clock" id="clock"></div>
 </header>
 <main>
@@ -136,8 +201,10 @@ main{max-width:1500px}
 </main>
 <script>
 (function(){
-const KEY='skmobile_items_v1', HIDDEN_KEY='skmobile_hidden_items_v1', PIN_KEY='skmobile_pinned_items_v1';let items=[];let hiddenItems=[];let pinnedItems=[];let showAll=false;
+const KEY='skmobile_items_v1', HIDDEN_KEY='skmobile_hidden_items_v1', PIN_KEY='skmobile_pinned_items_v1', VIEW_KEY='skmobile_layout_view_v1';let items=[];let hiddenItems=[];let pinnedItems=[];let showAll=false;
 const $=id=>document.getElementById(id);
+function setLayoutView(mode){const chosen=(mode==='pc'||mode==='mobile')?mode:'auto';document.body.classList.toggle('pc-view',chosen==='pc');document.body.classList.toggle('mobile-view',chosen==='mobile');const b=$('viewToggle');if(b){const pc=chosen==='pc';b.textContent=pc?'📱 Mobile View':'🖥 PC View';b.setAttribute('aria-pressed',String(pc));b.title=pc?'Switch to Mobile layout':'Switch to PC layout';}try{if(chosen==='auto')localStorage.removeItem(VIEW_KEY);else localStorage.setItem(VIEW_KEY,chosen)}catch(e){}}
+try{const savedView=localStorage.getItem(VIEW_KEY);if(savedView==='pc'||savedView==='mobile')setLayoutView(savedView)}catch(e){}
 try{items=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(items))items=[]}catch(e){items=[]}
 try{hiddenItems=JSON.parse(localStorage.getItem(HIDDEN_KEY)||'[]');if(!Array.isArray(hiddenItems))hiddenItems=[]}catch(e){hiddenItems=[]}
 try{pinnedItems=JSON.parse(localStorage.getItem(PIN_KEY)||'[]');if(!Array.isArray(pinnedItems))pinnedItems=[]}catch(e){pinnedItems=[]}
@@ -211,6 +278,7 @@ function renderAdmin(){
 $('globalSearch').addEventListener('input',()=>{showAll=true;render()});
 $('viewAllItems').onclick=()=>{showAll=!showAll;$('viewAllItems').textContent=showAll?'Show Less ↑':'View All →';render()};
 $('focusSearch').onclick=()=>$('globalSearch').focus();
+$('viewToggle').onclick=()=>setLayoutView(document.body.classList.contains('pc-view')?'mobile':'pc');
 $('notifyBtn').onclick=()=>alert('No new notifications');
 function updateClock(){const d=new Date();$('clock').innerHTML='<b>'+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</b><small>'+d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+'</small>'}updateClock();setInterval(updateClock,30000);
 $('filter').addEventListener('change',render);
